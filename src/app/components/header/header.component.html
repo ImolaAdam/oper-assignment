@@ -1,0 +1,31 @@
+<div
+  class="header d-flex flex-column flex-md-row justify-content-around align-items-center"
+>
+  <div class="header__section d-flex align-items-center mb-2 mb-md-0">
+    <mat-icon class="header__icon me-2">movie</mat-icon>
+    <div class="header__title">{{ menuOptions.appName }}</div>
+  </div>
+  <div class="header__section d-flex align-items-center">
+    <!-- Movies Link -->
+    <a
+      class="header__item"
+      [routerLink]="['/movies']"
+      [class.header__item--active]="'/movies' | isActiveRoute"
+      [class.header__item--inactive]="!('/movies' | isActiveRoute)"
+    >
+      {{ menuOptions.movies }}
+    </a>
+
+    <div class="header__divider ms-2 me-2">|</div>
+
+    <!-- Series Link -->
+    <a
+      class="header__item"
+      [routerLink]="['/series']"
+      [class.header__item--active]="'/series' | isActiveRoute"
+      [class.header__item--inactive]="!('/series' | isActiveRoute)"
+    >
+      {{ menuOptions.series }}
+    </a>
+  </div>
+</div>

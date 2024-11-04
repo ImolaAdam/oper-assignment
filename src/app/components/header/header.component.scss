@@ -1,0 +1,51 @@
+.header {
+  padding: 0.5rem;
+  background-color: #aa4a44; // brick red
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  &__icon {
+    font-size: 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+
+    @media (max-width: 600px) {
+      // Smaller icon size on screens smaller than md
+      font-size: 2rem;
+    }
+  }
+
+  &__title,
+  &__item {
+    font-weight: 600;
+    // Default for small screens
+    font-size: 0.9rem;
+
+    &--active {
+      color: black !important;
+      font-weight: bold;
+    }
+
+    &--inactive {
+      color: #454545 !important; // Grey color for the inactive link
+    }
+
+    @media (min-width: 600px) {
+      // Larger text on medium screens and up
+      font-size: 1.5rem;
+    }
+  }
+
+  &__divider {
+    font-size: 0.8rem;
+    font-weight: bold;
+
+    @media (min-width: 768px) {
+      // Larger divider on medium screens and up
+      font-size: 1.5rem;
+    }
+  }
+}

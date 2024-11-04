@@ -4,22 +4,22 @@ import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-top-movies',
+  selector: 'app-top-series',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './top-movies.component.html',
-  styleUrl: './top-movies.component.css',
+  templateUrl: './top-series.component.html',
+  styleUrl: './top-series.component.scss',
 })
-export class TopMoviesComponent implements OnInit, OnDestroy {
-  topMovies: any[] = [];
+export class TopSeriesComponent implements OnInit, OnDestroy {
+  seriesList: any[] = [];
   subs: Subscription[] = [];
 
   constructor(private tmdbService: TmdbService) {}
 
   ngOnInit(): void {
-    this.tmdbService.getTopRatedMovies().subscribe((data) => {
-      console.log('movies,', data);
-      this.topMovies = data.results.slice(0, 10); // Get only the top 10 movies
+    this.tmdbService.getTopRatedSeries().subscribe((series) => {
+      console.log('movies', series);
+      this.seriesList = series.results.slice(0, 10);
     });
   }
 
