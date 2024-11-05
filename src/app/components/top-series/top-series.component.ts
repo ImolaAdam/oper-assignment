@@ -2,11 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TmdbService } from '../../services/tmdb.service';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { ListComponent } from '../../shared/list/list.component';
 
 @Component({
   selector: 'app-top-series',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ListComponent],
   templateUrl: './top-series.component.html',
   styleUrl: './top-series.component.scss',
 })
@@ -18,8 +19,8 @@ export class TopSeriesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.tmdbService.getTopRatedSeries().subscribe((series) => {
-      console.log('movies', series);
       this.seriesList = series.results.slice(0, 10);
+      console.log(this.seriesList)
     });
   }
 

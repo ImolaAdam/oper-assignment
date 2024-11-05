@@ -1,6 +1,2 @@
 <h2>Top 10 Movies</h2>
-<ul>
-  <li *ngFor="let movie of topMovies">
-    {{ movie.title }} - Rating: {{ movie.vote_average }}
-  </li>
-</ul>
+<app-list [list]="topMovies"></app-list>
