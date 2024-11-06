@@ -1,5 +1,5 @@
-<div class="details">
+<div class="details" *ngIf="details">
   <div class="details__title">{{ details.title }}</div>
-  <div class="details__rating">Rating: {{ details.vote_average }}</div>
+  <div class="details__rating">Rating: {{ details.rating }}</div>
   <div>{{ details.overview | truncate }}</div>
 </div>

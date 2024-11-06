@@ -18,10 +18,11 @@ export class TopSeriesComponent implements OnInit, OnDestroy {
   constructor(private tmdbService: TmdbService) {}
 
   ngOnInit(): void {
-    this.tmdbService.getTopRatedSeries().subscribe((series) => {
-      this.seriesList = series.results.slice(0, 10);
-      console.log(this.seriesList)
-    });
+    this.subs.push(
+      this.tmdbService.getTopRatedSeries().subscribe((series) => {
+        this.seriesList = series.slice(0, 10);
+      })
+    );
   }
 
   ngOnDestroy(): void {

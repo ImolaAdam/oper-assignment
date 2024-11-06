@@ -18,10 +18,11 @@ export class TopMoviesComponent implements OnInit, OnDestroy {
   constructor(private tmdbService: TmdbService) {}
 
   ngOnInit(): void {
-    this.tmdbService.getTopRatedMovies().subscribe((data) => {
-      console.log('movies,', data);
-      this.topMovies = data.results.slice(0, 10); // Get only the top 10 movies
-    });
+    this.subs.push(
+      this.tmdbService.getTopRatedMovies().subscribe((data) => {
+        this.topMovies = data.slice(0, 10); // Get only the top 10 movies
+      })
+    );
   }
 
   ngOnDestroy(): void {

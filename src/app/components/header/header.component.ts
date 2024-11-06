@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { Router, RouterModule } from '@angular/router';
-import { IsActiveRoutePipe } from '../pipes/is-active-route.pipe';
+import { RouterModule } from '@angular/router';
+import { IsActiveRoutePipe } from '../../pipes/is-active-route.pipe';
 
 @Component({
   selector: 'app-header',
@@ -17,10 +17,6 @@ export class HeaderComponent {
     series: 'TV SHOWS',
   };
 
-  constructor(private router: Router) {}
+  constructor() {}
 
-  isActive(route: string): boolean {
-    console.log(this.router.url.includes(route))
-    return this.router.url.includes(route);
-  }
 }

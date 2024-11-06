@@ -25,12 +25,12 @@
     font-size: 0.9rem;
 
     &--active {
-      color: black !important;
+      color: #faf9fd !important;
       font-weight: bold;
     }
 
     &--inactive {
-      color: #454545 !important; // Grey color for the inactive link
+      color: black !important; // black color for the inactive link
     }
 
     @media (min-width: 600px) {

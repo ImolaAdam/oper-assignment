@@ -4,10 +4,10 @@
       *ngFor="let item of list; let index = index"
       class="col-12 col-md-12 col-lg-6 mb-3 d-flex"
     >
-      <div class="container__card w-100 p-2 d-flex flex-column flex-md-row">
+      <div class="container__card w-100 p-2 d-flex flex-column flex-md-row" (click)="onNavigation(item.id)">
         <!-- Image -->
         <img
-          [src]="getFullPosterPath(item.poster_path)"
+          [src]="item.poster_path | getPosterPath"
           alt="{{ item.title }} poster"
           class="img-fluid pe-2"
         />
