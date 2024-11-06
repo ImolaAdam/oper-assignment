@@ -60,7 +60,7 @@ export class TmdbService {
   }
 
   /**
-   * @param movieId The ID of the movie to retrieve details for
+   * @param movieId The Id of the movie to retrieve details for
    * @returns Details of the specified movie
    */
   getMovieById(movieId: number): Observable<ListItemDetails> {
@@ -69,7 +69,7 @@ export class TmdbService {
     return this.http.get<any>(url).pipe(
       map((movie) => ({
         adult: movie.adult,
-        name: movie.title, // Title is for movies
+        name: movie.title,
         created_by: movie.created_by?.map((creator: any) => creator.name) || [],
         first_air_date: new Date(movie.first_air_date),
         genres: movie.genres?.map((genre: any) => genre.name) || [],
@@ -101,15 +101,15 @@ export class TmdbService {
   }
 
   /**
-   * @param tvId The ID of the TV show to retrieve details for
+   * @param tvId The Id of the TV show to retrieve details for
    * @returns Details of the specified TV show
    */
-  getTvShowById(tvId: number): Observable<any> {
+  getTvShowById(tvId: number): Observable<ListItemDetails> {
     const url = `${this.apiUrl}/tv/${tvId}?api_key=${environment.tmdbApiKey}&language=en-US`;
     return this.http.get<any>(url).pipe(
       map((series) => ({
         adult: series.adult,
-        name: series.name, // Title is for movies
+        name: series.name,
         created_by:
           series.created_by?.map((creator: any) => creator.name) || [],
         first_air_date: new Date(series.first_air_date),

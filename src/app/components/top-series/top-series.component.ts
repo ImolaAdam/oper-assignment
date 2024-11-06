@@ -9,6 +9,7 @@ import {
 import { ListComponent } from '../../shared/list/list.component';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { ListItem } from '../../models/list-item';
 
 @Component({
   selector: 'app-top-series',
@@ -18,12 +19,11 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './top-series.component.scss',
 })
 export class TopSeriesComponent implements OnInit, OnDestroy {
-  seriesList: any[] = [];
+  seriesList: ListItem[] = [];
   subs: Subscription[] = [];
 
-  searchResults: any[] = [];
+  searchResults: ListItem[] = [];
   searchTerm: string = '';
-  private searchTermSubject = new Subject<string>(); // Subject for search terms
 
   constructor(private tmdbService: TmdbService) {}
 

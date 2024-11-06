@@ -6,6 +6,7 @@ import { ListComponent } from '../../shared/list/list.component';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
+import { ListItem } from '../../models/list-item';
 
 
 @Component({
@@ -16,12 +17,11 @@ import {MatIconModule} from '@angular/material/icon';
   styleUrl: './top-movies.component.scss',
 })
 export class TopMoviesComponent implements OnInit, OnDestroy {
-  topMovies: any[] = [];
+  topMovies: ListItem[] = [];
   subs: Subscription[] = [];
 
-  searchResults: any[] = [];
+  searchResults: ListItem[] = [];
   searchTerm: string = '';
-  private searchTermSubject = new Subject<string>(); // Subject for search terms
 
   constructor(private tmdbService: TmdbService) {}
 
