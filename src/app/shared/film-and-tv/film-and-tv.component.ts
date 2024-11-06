@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { GetPosterPathPipe } from '../../pipes/get-poster-path.pipe';
 
 @Component({
-  selector: 'app-film-and-tvcomponent',
+  selector: 'app-film-and-tv',
   standalone: true,
   imports: [CommonModule, GetPosterPathPipe],
   templateUrl: './film-and-tv.component.html',

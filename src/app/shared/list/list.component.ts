@@ -4,6 +4,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { ItemDetailsComponent } from './item-details/item-details.component';
 import { Router, RouterModule } from '@angular/router';
 import { GetPosterPathPipe } from '../../pipes/get-poster-path.pipe';
+import { ListItem } from '../../models/list-item';
 
 @Component({
   selector: 'app-list',
@@ -19,7 +20,7 @@ import { GetPosterPathPipe } from '../../pipes/get-poster-path.pipe';
   styleUrl: './list.component.scss',
 })
 export class ListComponent {
-  @Input() list: any[] = [];
+  @Input() list: ListItem[] = [];
 
   constructor(private router: Router) {}
 

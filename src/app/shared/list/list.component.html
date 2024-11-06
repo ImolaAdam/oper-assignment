@@ -1,10 +1,12 @@
-<div class="container" *ngIf="list">
+@if (list) {
+<div class="container">
   <div class="row">
-    <div
-      *ngFor="let item of list; let index = index"
-      class="col-12 col-md-12 col-lg-6 mb-3 d-flex"
-    >
-      <div class="container__card w-100 p-2 d-flex flex-column flex-md-row" (click)="onNavigation(item.id)">
+    @for (item of list; track item.id) {
+    <div class="col-12 col-md-12 col-lg-6 mb-3 d-flex">
+      <div
+        class="container__card w-100 p-2 d-flex flex-column flex-md-row"
+        (click)="onNavigation(item.id)"
+      >
         <!-- Image -->
         <img
           [src]="item.poster_path | getPosterPath"
@@ -14,10 +16,12 @@
 
         <!-- Title and Rating (below index + image on small screens) -->
         <div class="mt-2 mt-md-0 h-100 w-100">
-          <div class="container__index ps-2">{{ index + 1 }}</div>
+          <div class="container__index ps-2">{{ $index + 1 }}</div>
           <app-item-details [details]="item"></app-item-details>
         </div>
       </div>
     </div>
+    }
   </div>
 </div>
+}

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ListItem } from '../models/list-item';
 import { ListItemDetails } from '../models/list-item-details';
@@ -10,6 +10,12 @@ import { ListItemDetails } from '../models/list-item-details';
 })
 export class TmdbService {
   private apiUrl = 'https://api.themoviedb.org/3';
+  private searchTermSubject = new BehaviorSubject<string>(''); // Observable for the search term
+  private searchResultsSubject = new BehaviorSubject<any[]>([]); // Observable for search results
+
+  // Public observables to be shared across components
+  searchTerm$ = this.searchTermSubject.asObservable();
+  searchResults$ = this.searchResultsSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -134,5 +140,40 @@ export class TmdbService {
         tagline: series.tagline,
       }))
     );
+  }
+
+  /**
+   * Sets the current search term and triggers search if term length is 3 or more
+   */
+  setSearchTerm(term: string): void {
+    this.searchTermSubject.next(term); // Emit the search term
+    if (term.length >= 3) {
+      this.searchMoviesAndTv(term); // Trigger the search if term is long enough
+    } else {
+      this.searchResultsSubject.next([]); // Clear results if term is too short
+    }
+  }
+
+  /**
+   * Fetches search results for movies and TV shows based on the current search term
+   */
+  private searchMoviesAndTv(term: string): void {
+    const url = `${this.apiUrl}/search/multi?api_key=${environment.tmdbApiKey}&language=en-US&query=${term}`;
+
+    this.http
+      .get<any>(url)
+      .pipe(
+        map((response) =>
+          response.results.map((item: any) => ({
+            id: item.id,
+            title: item.title || item.name, // Movies use "title", TV shows use "name"
+            rating: item.vote_average,
+            overview: item.overview,
+            media_type: item.media_type, // Either 'movie' or 'tv'
+            poster_path: item.poster_path,
+          }))
+        )
+      )
+      .subscribe((results) => this.searchResultsSubject.next(results));
   }
 }

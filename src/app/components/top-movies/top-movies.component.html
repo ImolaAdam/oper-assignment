@@ -1,2 +1,24 @@
-<h2>Top 10 Movies</h2>
-<app-list [list]="topMovies"></app-list>
+<div class="container">
+  <mat-form-field class="form-field">
+    <mat-label>Search for movies and series</mat-label>
+    <input
+      matInput
+      type="text"
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="onSearchTermChange($event)"
+    />
+  </mat-form-field>
+
+  @if (searchTerm.length >= 3 && searchResults.length > 0) {
+  <div class="search-results">
+    <app-list [list]="searchResults"></app-list>
+  </div>
+  }
+
+  <!-- Fallback for displaying top movies list if no search results are active -->
+  @if (!searchTerm || searchResults.length === 0) {
+  <div class="top-movies">
+    <app-list [list]="topMovies"></app-list>
+  </div>
+  }
+</div>

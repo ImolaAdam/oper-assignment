@@ -1,19 +1,29 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TmdbService } from '../../services/tmdb.service';
 import { CommonModule } from '@angular/common';
-import { Subscription } from 'rxjs';
+import {MatInputModule} from '@angular/material/input';
+import {
+  Subject,
+  Subscription,
+} from 'rxjs';
 import { ListComponent } from '../../shared/list/list.component';
+import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-top-series',
   standalone: true,
-  imports: [CommonModule, ListComponent],
+  imports: [CommonModule, ListComponent, FormsModule, MatInputModule, MatIconModule],
   templateUrl: './top-series.component.html',
   styleUrl: './top-series.component.scss',
 })
 export class TopSeriesComponent implements OnInit, OnDestroy {
   seriesList: any[] = [];
   subs: Subscription[] = [];
+
+  searchResults: any[] = [];
+  searchTerm: string = '';
+  private searchTermSubject = new Subject<string>(); // Subject for search terms
 
   constructor(private tmdbService: TmdbService) {}
 
@@ -23,6 +33,23 @@ export class TopSeriesComponent implements OnInit, OnDestroy {
         this.seriesList = series.slice(0, 10);
       })
     );
+
+    // Subscribe to shared search term and search results
+    this.subs.push(
+      this.tmdbService.searchTerm$.subscribe((term) => {
+        this.searchTerm = term;
+      })
+    );
+
+    this.subs.push(
+      this.tmdbService.searchResults$.subscribe((results) => {
+        this.searchResults = results;
+      })
+    );
+  }
+
+  onSearchTermChange(term: string): void {
+    this.tmdbService.setSearchTerm(term); // Update shared search term in the service
   }
 
   ngOnDestroy(): void {
